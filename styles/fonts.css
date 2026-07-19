@@ -53,3 +53,21 @@ html {
 
   text-wrap-style: pretty;
 }
+
+h1 {
+  font-family: "Space Grotesk";
+  font-weight: 700;
+  color: var(--neon-cyan);
+  line-height: 75%;
+}
+
+h2 {
+  font-family: "Space Grotesk";
+  font-weight: 500;
+  font-size: 1.7rem;
+  line-height: 120%;
+  color: var(--te);
+
+  height: 60px;
+  align-content: center;
+}

@@ -1,0 +1,120 @@
+.card-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 32px;
+}
+
+.card {
+  width: 350px;
+
+  background-color: var(--bg-card);
+  border-radius: 30px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 16px;
+}
+
+.img-wrapper {
+  width: 100%;
+  height: auto;
+
+  position: relative;
+}
+
+.hobby-img {
+  aspect-ratio: 2 / 1;
+  width: 100%;
+  object-fit: cover;
+}
+
+.icon-save {
+  width: 32px;
+  height: 40px;
+  position: absolute;
+  right: 0px;
+  top: 4px;
+  stroke: var(--neon-cyan);
+  stroke-width: 0.4px;
+  fill: rgba(255, 255, 255, 0.2);
+}
+
+.icon-save-checked {
+  fill: var(--neon-cyan);
+}
+
+.bottom-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 8px;
+}
+
+.likes-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 75%;
+    margin-bottom: 8px;
+
+    .like {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        text-align: left;
+        width: 50%;
+    }
+
+    .icon-like {
+        width: 24px;
+        height: 32px;
+        stroke: var(--neon-green);
+        fill: var(--bg-card);
+    }
+
+    .icon-like-checked {
+      fill: var(--neon-green);
+    }
+
+    .icon-dislike {
+        width: 24px;
+        height: 32px;
+        stroke: var(--neon-pink);
+        fill: var(--bg-card);
+    }
+
+    .icon-dislike-checked {
+      fill: var(--neon-pink);
+    }
+}
+
+.infos {
+  text-align: left;
+  width: calc(100% - 32px);
+}
+
+.open-comments {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  padding: 8px;
+
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+}
+
+.btn-open-comments {
+  background-color: var(--neon-cyan);
+  border-radius: 10px;
+  padding: 8px;
+
+}
+
+
