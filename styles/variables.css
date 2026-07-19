@@ -1,0 +1,18 @@
+:root {
+  /* Backgrounds */
+  --bg-dark: #0d1117;       /* Sehr dunkles Anthrazit für den Body-Hintergrund */
+  --bg-card: #161b22;       /* Etwas helleres Grau-Blau für die Karten (gibt Tiefe) */
+  --bg-input: #21262d;      /* Für Textfelder und Kommentareingaben */
+
+  /* Text Colors */
+  --text-main: #f0f6fc;     /* Fast weiß für Titel und wichtige Infos */
+  --text-muted: #8b949e;    /* Sanftes Grau für Labels ("Dauer:", "Investition:") und Kommentare */
+
+  /* Dopamin- & Action-Colors (Akzente) */
+  --neon-cyan: #00f2fe;     /* Hyperfokus-Cyan: Für primäre Buttons, Rahmen oder Highlights */
+  --neon-pink: #ff007f;     /* Dopamin-Pink: Perfekt für das Herz (Like) und fehlerhafte Zustände */
+  --neon-green: #39ff14;    /* Skill-Grün: Für positive Erfolge (z. B. Skill-Level) */
+  
+  /* Borders */
+  --border-color: #30363d;  /* Dezente Trennlinien zwischen den Sektionen */
+}
