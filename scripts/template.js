@@ -48,13 +48,13 @@ function likesTemplate(i) {
   return /*html*/ `
     <div class="likes-wrapper">
       <div class="like">
-        <svg class="icon-like" id="icon-like-card${i}" onclick="likeCard(${i}, card)">
+        <svg class="icon-like" id="icon-like-card${i}" onclick="likeCard(${i})">
           <use href="./assets/icons/icons.svg#icon-like"></use>
         </svg>
         <p class="like-number" id="likes-card${i}">${hobbys[i].likes}</p>
       </div>
       <div class="like">
-        <svg class="icon-dislike" id="icon-disliked-card${i}" onclick="dislikeCard(${i}, card)">
+        <svg class="icon-dislike" id="icon-disliked-card${i}" onclick="dislikeCard(${i})">
           <use href="./assets/icons/icons.svg#icon-dislike"></use>
         </svg>
         <p class="dislike-number" id="dislikes-card${i}">${hobbys[i].dislikes}</p>
