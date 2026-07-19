@@ -17,6 +17,11 @@ header {
   align-items: center;
   max-width: 1440px;
   padding: 0 120px;
+
+  .logo {
+    height: 64px;
+    width: 64px;
+  }
 }
 
 footer {
