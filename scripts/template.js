@@ -117,3 +117,22 @@ function commentsTemplate(i, j) {
     </article>
   `
 }
+
+function loginTemplate() {
+  return /*html*/`
+    <div class="login" id="login">
+      <input
+        type="text"
+        id="user-input"
+        placeholder="enter an username"
+      />
+      <button class="btn-add-user" onclick="addUser()">User speichern</button>
+    </div>
+  `
+}
+
+function welcomeTemplate(userName) {
+  return /*html*/`
+    <p>Willkommen ${userName}!</p>
+  `
+}

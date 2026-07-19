@@ -1,5 +1,10 @@
 const dialogRef = document.getElementById("card-dialog");
 
+function init() {
+  renderHeader();
+  renderCard();
+}
+
 function calcAvgCosts(i) {
   let avgCosts = getAverage(i, "costs");
   return formatPrice(avgCosts);
@@ -89,7 +94,10 @@ function addComment(i) {
   console.log(commentInputRef);
   commentsRef.innerHTML = "";
   let content = commentInputRef.value;
-  let user = "TestUser2";
+  let user = "[unknown user]";
+  if (localStorage.getItem("userName")) {
+    user = localStorage.getItem("userName");
+  }
   let newComment = {"userName": user, "commentContent": content, "costs": 68, "duration": 30, "euphoriaLevel": 6}
   hobbys[i].comments.push(newComment);
   
@@ -137,4 +145,27 @@ function renderSavedCards() {
   }
 }
 
-renderCard();
+function addUser() {
+  const userInputRef = document.getElementById("user-input");
+  const loginRef = document.getElementById("login");
+  if (userInputRef.value != "") {
+    let userName = userInputRef.value;
+    localStorage.setItem("userName", userName);
+    loginRef.innerHTML = "";
+    loginRef.innerHTML = welcomeTemplate(userName);
+  } else {
+    alert("Du hast da wohl etwas vergessen.");
+  }
+}
+
+function renderHeader() {
+  const loginRef = document.getElementById("login");
+  const userName = localStorage.getItem("userName");
+  if (userName) {
+    loginRef.innerHTML = welcomeTemplate(userName);
+  } else {
+    loginRef.innerHTML = loginTemplate();
+  }
+}
+
+init();
