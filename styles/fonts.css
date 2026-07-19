@@ -71,3 +71,24 @@ h2 {
   height: 60px;
   align-content: center;
 }
+
+h3 {
+  font-family: "Space Grotesk";
+  font-weight: 400;
+  font-size: 1.3rem;
+  line-height: 75%;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+}
+
+.user {
+    color: var(--neon-cyan);
+    font-weight: 600;
+    text-align: left;
+}
+
+.commentContent {
+  text-align: left;
+}
+

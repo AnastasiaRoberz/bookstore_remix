@@ -1,3 +1,5 @@
+const dialogRef = document.getElementById("card-dialog");
+
 function calcAvgCosts(i) {
   let sumCosts = 0;
   let counter = 0;
@@ -76,4 +78,37 @@ function initialLikeStatus(i) {
     } else if (hobbys[i].disliked === true) {
       btnDislike.classList.add("icon-dislike-checked");
     }
+}
+
+function openDialog(i, type) {
+  dialogRef.showModal();
+  dialogRef.classList.add("opened");
+  renderDialog(i, type);
+}
+
+function closeDialog() {
+  dialogRef.close();
+  dialogRef.classList.remove("opened");
+}
+
+function bubblingProtection(event) {
+  event.stopPropagation();
+}
+
+function renderComments(i) {
+  let comments = "";
+
+  for (let j = 0; j < hobbys[i].comments.length; j++) {
+    const cardInfos = renderInfoTable(i);
+    comments += commentsTemplate(i, j);
+  }
+  return comments;
+}
+
+function renderDialog(i, type) {
+  dialogRef.innerHTML = "";
+  const infos = renderInfoTable(i);
+  const comments = renderComments(i);
+
+  dialogRef.innerHTML += getDialogTemplate(i, type, infos, comments);
 }

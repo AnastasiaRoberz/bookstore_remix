@@ -62,3 +62,60 @@ function likesTemplate(i) {
     </div>
     `;
 }
+
+
+
+function getDialogTemplate(i, type, cardInfos, comments) {
+  return /*html*/`
+    <button class="icon-close" onClick="closeDialog()">
+      <svg class="icon-close-svg">
+        <use href="./assets/icons/icons.svg#icon-close"></use>
+      </svg>
+    </button>
+    <div class="dialog-content" id="dialog-content${i}" onClick=event.stopPropagation()>
+      <div class="content-left">
+        <h2>${hobbys[i].title}</h2>
+        <hr>
+        <p class="description">${hobbys[i].description}</p>
+        <hr>
+        <table class="infos" id="info-card${i}">${cardInfos}</table>
+        <hr>
+          ${likesTemplate(i, type)}
+      </div>
+
+      <div class="content-right">
+        <h3>Kommentare</h3>
+        <div class="comments-wrapper">
+          ${comments}
+        </div>
+        <div class="send-comment">
+          <input type="text" class="send-comment-input" name="" id="send-comment-input${i}" placeholder="Hinterlasse auch eine Warnung">
+            <svg class="send-comment-btn" onClick="sendComment(${i})">
+              <use href="./assets/icons/icons.svg#icon-send"></use>
+            </svg>
+        </div>
+      </div>
+    </div>
+  `
+}
+
+function commentsTemplate(i, j) {
+  return /*html*/`
+    <article class="comment">
+      <p class="user">${hobbys[i].comments[j].userName}</p>
+      <p class="comment-content">${hobbys[i].comments[j].commentContent}</p>
+      <table class="comment-table">
+        <tr>
+          <th>Dopamin-Steuer</th>
+          <th>Lebenserwartung</th>
+          <th>Euphorie-Level</th>
+        </tr>
+        <tr>
+          <td>${hobbys[i].comments[j].costs}</td>
+          <td>${hobbys[i].comments[j].duration}</td>
+          <td>${hobbys[i].comments[j].euphoriaLevel}</td>
+        </tr>
+      </table>
+    </article>
+  `
+}
