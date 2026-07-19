@@ -33,31 +33,31 @@ function renderInfoTable(i) {
 
 function renderCard() {
   const cardWrapperRef = document.getElementById("card-wrapper");
+  const headingRef = document.getElementById("main-heading");
   cardWrapperRef.innerHTML = "";
+  headingRef.innerText = "Die Galerie der teuren Staubfänger";
 
   for (let i = 0; i < hobbys.length; i++) {
     let cardInfos = renderInfoTable(i);
     cardWrapperRef.innerHTML += cardTemplate(i, cardInfos);
     let cardContainer = document.getElementById(`card${i}`);
-    let btnSave = cardContainer.querySelector(".icon-save");
-    let btnLike = cardContainer.querySelector(".icon-like");
-    let btnDislike = cardContainer.querySelector(".icon-dislike");
-    let txtLikes = cardContainer.querySelector(".like-number");
-    let txtDislikes = cardContainer.querySelector(".dislike-number");
+    let elements = getLikeElements(cardContainer);
 
-    updateLikesContent(i, btnSave, btnLike, btnDislike, txtLikes, txtDislikes);
+    updateLikesContent(i, elements.btnSave, elements.btnLike, elements.btnDislike, elements.txtLikes, elements.txtDislikes);
   }
 }
 
 function openDialog(i) {
   dialogRef.showModal();
   dialogRef.classList.add("opened");
+  document.body.classList.add("dialog-open");
   renderDialog(i);
 }
 
 function closeDialog() {
   dialogRef.close();
   dialogRef.classList.remove("opened");
+  document.body.classList.remove("dialog-open");
   renderCard();
 }
 
@@ -80,18 +80,14 @@ function renderDialog(i) {
   const infos = renderInfoTable(i);
   const comments = renderComments(i);
   dialogRef.innerHTML += getDialogTemplate(i, infos, comments);
-  let btnLike = dialogRef.querySelector(".icon-like");
-  let btnDislike = dialogRef.querySelector(".icon-dislike");
-  let txtLikes = dialogRef.querySelector(".like-number");
-  let txtDislikes = dialogRef.querySelector(".dislike-number");
+  let elements = getLikeElements(dialogRef);
 
-  updateLikesContent(i, btnLike, btnDislike, txtLikes, txtDislikes);
+  updateLikesContent(i, null, elements.btnLike, elements.btnDislike, elements.txtLikes, elements.txtDislikes);
 }
 
 function addComment(i) {
   const commentInputRef = document.getElementById(`send-comment-input${i}`);
   const commentsRef = document.getElementById("comments-wrapper");
-  console.log(commentInputRef);
   commentsRef.innerHTML = "";
   let content = commentInputRef.value;
   let user = "[unknown user]";
@@ -107,17 +103,14 @@ function addComment(i) {
 
 function likeCard(i, type, elementRef) {
   let parentWrapper = elementRef.closest(".likes-wrapper");
-  let btnLike = parentWrapper.querySelector(".icon-like");
-  let txtLikes = parentWrapper.querySelector(".like-number");
-  let btnDislike = parentWrapper.querySelector(".icon-dislike");
-  let txtDislikes = parentWrapper.querySelector(".dislike-number");
+  let elements = getLikeElements(parentWrapper);
 
   if (type === "like") {
     updateLikeStatus(i);
   } else if (type === "dislike") {
     updateDislikeStatus(i);
   }
-  updateLikesContent(i, btnLike, btnDislike, txtLikes, txtDislikes);
+  updateLikesContent(i, elements.btnSave, elements.btnLike, elements.btnDislike, elements.txtLikes, elements.txtDislikes);
 }
 
 function saveCard(i, elementRef) {
@@ -127,20 +120,18 @@ function saveCard(i, elementRef) {
 
 function renderSavedCards() {
   const cardWrapperRef = document.getElementById("card-wrapper");
+  const headingRef = document.getElementById("main-heading");
   cardWrapperRef.innerHTML = "";
+  headingRef.innerText = "Meine Favoriten des finanziellen Ruins";
 
   for (let i = 0; i < hobbys.length; i++) {
     if (hobbys[i].saved === true) {
       let cardInfos = renderInfoTable(i);
       cardWrapperRef.innerHTML += cardTemplate(i, cardInfos);
       let cardContainer = document.getElementById(`card${i}`);
-      let btnSave = cardContainer.querySelector(".icon-save");
-      let btnLike = cardContainer.querySelector(".icon-like");
-      let btnDislike = cardContainer.querySelector(".icon-dislike");
-      let txtLikes = cardContainer.querySelector(".like-number");
-      let txtDislikes = cardContainer.querySelector(".dislike-number");
+      let elements = getLikeElements(cardContainer);
   
-      updateLikesContent(i, btnSave, btnLike, btnDislike, txtLikes, txtDislikes);
+      updateLikesContent(i, elements.btnSave, elements.btnLike, elements.btnDislike, elements.txtLikes, elements.txtDislikes);
     }
   }
 }

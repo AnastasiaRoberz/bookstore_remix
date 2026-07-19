@@ -1,7 +1,7 @@
 function cardTemplate(i, cardInfos) {
   return /*html*/ `
   <article class="card" id="card${i}">
-    <h2>${hobbys[i].title}</h2>
+    <h2 class="card-heading">${hobbys[i].title}</h2>
     <hr>
     <div class="img-wrapper">
       <img class="hobby-img" src="./assets/pngs/${hobbys[i].imgName}" alt="${hobbys[i].alt}">
@@ -64,24 +64,20 @@ function likesTemplate(i) {
 }
 
 function getDialogTemplate(i, cardInfos, comments) {
-  return /*html*/`
-    <button class="icon-close" onclick="closeDialog()">
-      <svg class="icon-close-svg">
-        <use href="./assets/icons/icons.svg#icon-close"></use>
-      </svg>
-    </button>
+  return /*html*/ `
     <div class="dialog-content" id="dialog-content${i}" onclick=event.stopPropagation()>
-      <div class="content-left">
-        <h2>${hobbys[i].title}</h2>
-        <hr>
+      <header class="dialog-header">
+        <h2 class="dialog-heading">${hobbys[i].title}</h2>
+        <button class="icon-close" onclick="closeDialog()">
+          <svg class="icon-close-svg">
+            <use href="./assets/icons/icons.svg#icon-close"></use>
+          </svg>
+        </button>
+      </header>
+      <hr>
+      <main class="dialog-main">
         <p class="description">${hobbys[i].description}</p>
         <hr>
-        <table class="infos" id="info-card${i}">${cardInfos}</table>
-        <hr>
-          ${likesTemplate(i)}
-      </div>
-
-      <div class="content-right">
         <h3>Kommentare</h3>
         <div class="comments-wrapper" id="comments-wrapper">
           ${comments}
@@ -92,47 +88,34 @@ function getDialogTemplate(i, cardInfos, comments) {
               <use href="./assets/icons/icons.svg#icon-send"></use>
             </svg>
         </div>
-      </div>
+      </main>
     </div>
-  `
+  `;
 }
 
 function commentsTemplate(i, j) {
-  return /*html*/`
+  return /*html*/ `
     <article class="comment">
       <p class="user">${hobbys[i].comments[j].userName}</p>
       <p class="comment-content">${hobbys[i].comments[j].commentContent}</p>
-      <table class="comment-table">
-        <tr>
-          <th>Dopamin-Steuer</th>
-          <th>Lebenserwartung</th>
-          <th>Euphorie-Level</th>
-        </tr>
-        <tr>
-          <td>${hobbys[i].comments[j].costs}</td>
-          <td>${hobbys[i].comments[j].duration}</td>
-          <td>${hobbys[i].comments[j].euphoriaLevel}</td>
-        </tr>
-      </table>
     </article>
-  `
+  `;
 }
 
 function loginTemplate() {
-  return /*html*/`
-    <div class="login" id="login">
+  return /*html*/ `
       <input
         type="text"
+        class="user-name-input"
         id="user-input"
         placeholder="enter an username"
       />
       <button class="btn-add-user" onclick="addUser()">User speichern</button>
-    </div>
-  `
+  `;
 }
 
 function welcomeTemplate(userName) {
-  return /*html*/`
+  return /*html*/ `
     <p>Willkommen ${userName}!</p>
-  `
+  `;
 }

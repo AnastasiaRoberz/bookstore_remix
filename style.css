@@ -17,15 +17,16 @@ body {
   background-color: var(--bg-dark);
 }
 
-main {
+.index-main {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  max-width: 1440px;
   gap: 32px;
   flex-wrap: wrap;
   flex: 1;
-  padding: 32px;
+  padding: 64px 120px;
 }
 
 hr {

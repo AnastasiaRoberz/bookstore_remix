@@ -62,3 +62,14 @@ function updateLikesContent(i, btnSave, btnLike, btnDislike, txtLikes, txtDislik
   txtLikes.innerText = hobbys[i].likes;
   txtDislikes.innerText = hobbys[i].dislikes;
 }
+
+function getLikeElements(container) {
+  let elements = {
+    btnSave: container.querySelector(".icon-save"),
+    btnLike: container.querySelector(".icon-like"),
+    btnDislike: container.querySelector(".icon-dislike"),
+    txtLikes: container.querySelector(".like-number"),
+    txtDislikes: container.querySelector(".dislike-number")
+  }
+  return elements;
+}

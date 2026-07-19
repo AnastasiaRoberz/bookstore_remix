@@ -18,6 +18,11 @@
   padding: 16px;
 }
 
+.card-heading {
+  height: 66px;
+  align-content: center;
+}
+
 .img-wrapper {
   width: 100%;
   height: auto;
@@ -27,7 +32,8 @@
 
 .hobby-img {
   aspect-ratio: 2 / 1;
-  width: 100%;
+  max-width: 100%;
+  min-height: 0;
   object-fit: cover;
 }
 
@@ -57,17 +63,15 @@
 
 .likes-wrapper {
     display: flex;
-    justify-content: center;
-    width: 75%;
+    justify-content: space-between;
+    width: 250px;
     margin-bottom: 8px;
 
     .like {
         display: flex;
-        justify-content: center;
         align-items: center;
         gap: 8px;
         text-align: left;
-        width: 50%;
     }
 
     .icon-like {
@@ -95,7 +99,11 @@
 
 .infos {
   text-align: left;
-  width: calc(100% - 32px);
+  width: 260px;
+
+  th {
+    padding-right: 32px;
+  }
 }
 
 .open-comments {
@@ -114,7 +122,8 @@
   background-color: var(--neon-cyan);
   border-radius: 10px;
   padding: 8px;
-
+  color: var(--bg-input);
+  font-weight: 600;
 }
 
 
