@@ -28,25 +28,26 @@ function renderInfoTable(i) {
 
 function renderCard() {
   const cardWrapperRef = document.getElementById("card-wrapper");
+  cardWrapperRef.innerHTML = "";
 
   for (let i = 0; i < hobbys.length; i++) {
     let cardInfos = renderInfoTable(i);
     cardWrapperRef.innerHTML += cardTemplate(i, cardInfos);
-
     let cardContainer = document.getElementById(`card${i}`);
+    let btnSave = cardContainer.querySelector(".icon-save");
     let btnLike = cardContainer.querySelector(".icon-like");
     let btnDislike = cardContainer.querySelector(".icon-dislike");
     let txtLikes = cardContainer.querySelector(".like-number");
     let txtDislikes = cardContainer.querySelector(".dislike-number");
 
-    updateLikesContent(i, btnLike, btnDislike, txtLikes, txtDislikes);
+    updateLikesContent(i, btnSave, btnLike, btnDislike, txtLikes, txtDislikes);
   }
 }
 
-function openDialog(i, type) {
+function openDialog(i) {
   dialogRef.showModal();
   dialogRef.classList.add("opened");
-  renderDialog(i, type);
+  renderDialog(i);
 }
 
 function closeDialog() {
@@ -109,6 +110,31 @@ function likeCard(i, type, elementRef) {
     updateDislikeStatus(i);
   }
   updateLikesContent(i, btnLike, btnDislike, txtLikes, txtDislikes);
+}
+
+function saveCard(i, elementRef) {
+  hobbys[i].saved = !hobbys[i].saved;
+  elementRef.classList.toggle("icon-save-checked");
+}
+
+function renderSavedCards() {
+  const cardWrapperRef = document.getElementById("card-wrapper");
+  cardWrapperRef.innerHTML = "";
+
+  for (let i = 0; i < hobbys.length; i++) {
+    if (hobbys[i].saved === true) {
+      let cardInfos = renderInfoTable(i);
+      cardWrapperRef.innerHTML += cardTemplate(i, cardInfos);
+      let cardContainer = document.getElementById(`card${i}`);
+      let btnSave = cardContainer.querySelector(".icon-save");
+      let btnLike = cardContainer.querySelector(".icon-like");
+      let btnDislike = cardContainer.querySelector(".icon-dislike");
+      let txtLikes = cardContainer.querySelector(".like-number");
+      let txtDislikes = cardContainer.querySelector(".dislike-number");
+  
+      updateLikesContent(i, btnSave, btnLike, btnDislike, txtLikes, txtDislikes);
+    }
+  }
 }
 
 renderCard();

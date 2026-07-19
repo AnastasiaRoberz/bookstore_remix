@@ -34,9 +34,21 @@ hr {
   margin: 16px 0;
 }
 
-button, input {
+button {
   background: none;
   border: none;
+  color: var(--text-main);
+  cursor: pointer;
+}
+
+input {
+  background: none;
+  border: none;
+  color: var(--text-main);
+  background-color: var(--bg-input);
+  width: 100%;
+  height: 24px;
+  padding: 8px;
 }
 
 svg {
