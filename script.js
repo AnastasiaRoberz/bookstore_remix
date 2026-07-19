@@ -1,47 +1,18 @@
 const dialogRef = document.getElementById("card-dialog");
 
 function calcAvgCosts(i) {
-  let sumCosts = 0;
-  let counter = 0;
-  let avgCosts = 0;
-
-  for (let j = 0; j < hobbys[i].comments.length; j++) {
-    sumCosts = sumCosts + hobbys[i].comments[j].costs;
-    counter++;
-  }
-  avgCosts = sumCosts / counter;
-  avgCosts = formatPrice(avgCosts);
-  return avgCosts;
+  let avgCosts = getAverage(i, "costs");
+  return formatPrice(avgCosts);
 }
 
 function calcAvgDuration(i) {
-  let sumDuration = 0;
-  let counter = 0;
-  let avgDuration = 0;
-
-  for (let j = 0; j < hobbys[i].comments.length; j++) {
-    if (hobbys[i].comments[j].duration > 0) {
-      sumDuration = sumDuration + hobbys[i].comments[j].duration;
-      counter++;
-    }
-  }
-  avgDuration = sumDuration / counter;
-  avgDuration = Math.trunc(avgDuration);
-  return avgDuration;
+  let avgDuration = getAverage(i, "duration");
+  return Math.trunc(avgDuration);
 }
 
 function calcAvgEuphoriaLevel(i) {
-  let sumLevel = 0;
-  let counter = 0;
-  let avgLevel = 0;
-
-  for (let j = 0; j < hobbys[i].comments.length; j++) {
-    sumLevel = sumLevel + hobbys[i].comments[j].euphoriaLevel;
-    counter++;
-  }
-  avgLevel = sumLevel / counter;
-  avgLevel = roundNumber(avgLevel, 1);
-  return avgLevel;
+  let avgLevel = getAverage(i, "euphoriaLevel");
+  return roundNumber(avgLevel, 1);
 }
 
 function renderInfoTable(i) {
@@ -50,11 +21,7 @@ function renderInfoTable(i) {
   let avgLevel = calcAvgEuphoriaLevel(i);
   let infoContent = "";
 
-  infoContent = infoTableTemplate(
-    avgCosts,
-    avgDuration,
-    avgLevel,
-  );
+  infoContent = infoTableTemplate(avgCosts, avgDuration, avgLevel);
 
   return infoContent;
 }
@@ -63,21 +30,17 @@ function renderCard() {
   const cardWrapperRef = document.getElementById("card-wrapper");
 
   for (let i = 0; i < hobbys.length; i++) {
-    const cardInfos = renderInfoTable(i);
+    let cardInfos = renderInfoTable(i);
     cardWrapperRef.innerHTML += cardTemplate(i, cardInfos);
-    initialLikeStatus(i);
+
+    let cardContainer = document.getElementById(`card${i}`);
+    let btnLike = cardContainer.querySelector(".icon-like");
+    let btnDislike = cardContainer.querySelector(".icon-dislike");
+    let txtLikes = cardContainer.querySelector(".like-number");
+    let txtDislikes = cardContainer.querySelector(".dislike-number");
+
+    updateLikesContent(i, btnLike, btnDislike, txtLikes, txtDislikes);
   }
-}
-
-function initialLikeStatus(i) {
-    let btnLike = document.getElementById(`icon-like-card${i}`);
-    let btnDislike = document.getElementById(`icon-disliked-card${i}`); 
-
-    if (hobbys[i].liked === true) {
-      btnLike.classList.add("icon-like-checked");
-    } else if (hobbys[i].disliked === true) {
-      btnDislike.classList.add("icon-dislike-checked");
-    }
 }
 
 function openDialog(i, type) {
@@ -89,6 +52,7 @@ function openDialog(i, type) {
 function closeDialog() {
   dialogRef.close();
   dialogRef.classList.remove("opened");
+  renderCard();
 }
 
 function bubblingProtection(event) {
@@ -97,18 +61,54 @@ function bubblingProtection(event) {
 
 function renderComments(i) {
   let comments = "";
+  let arrayLength = hobbys[i].comments.length;
 
-  for (let j = 0; j < hobbys[i].comments.length; j++) {
-    const cardInfos = renderInfoTable(i);
+  for (let j = arrayLength -1; j >= 0; j--) {
     comments += commentsTemplate(i, j);
   }
   return comments;
 }
 
-function renderDialog(i, type) {
+function renderDialog(i) {
   dialogRef.innerHTML = "";
   const infos = renderInfoTable(i);
   const comments = renderComments(i);
+  dialogRef.innerHTML += getDialogTemplate(i, infos, comments);
+  let btnLike = dialogRef.querySelector(".icon-like");
+  let btnDislike = dialogRef.querySelector(".icon-dislike");
+  let txtLikes = dialogRef.querySelector(".like-number");
+  let txtDislikes = dialogRef.querySelector(".dislike-number");
 
-  dialogRef.innerHTML += getDialogTemplate(i, type, infos, comments);
+  updateLikesContent(i, btnLike, btnDislike, txtLikes, txtDislikes);
 }
+
+function addComment(i) {
+  const commentInputRef = document.getElementById(`send-comment-input${i}`);
+  const commentsRef = document.getElementById("comments-wrapper");
+  console.log(commentInputRef);
+  commentsRef.innerHTML = "";
+  let content = commentInputRef.value;
+  let user = "TestUser2";
+  let newComment = {"userName": user, "commentContent": content, "costs": 68, "duration": 30, "euphoriaLevel": 6}
+  hobbys[i].comments.push(newComment);
+  
+  commentsRef.innerHTML = renderComments(i);
+  commentInputRef.value = "";
+}
+
+function likeCard(i, type, elementRef) {
+  let parentWrapper = elementRef.closest(".likes-wrapper");
+  let btnLike = parentWrapper.querySelector(".icon-like");
+  let txtLikes = parentWrapper.querySelector(".like-number");
+  let btnDislike = parentWrapper.querySelector(".icon-dislike");
+  let txtDislikes = parentWrapper.querySelector(".dislike-number");
+
+  if (type === "like") {
+    updateLikeStatus(i);
+  } else if (type === "dislike") {
+    updateDislikeStatus(i);
+  }
+  updateLikesContent(i, btnLike, btnDislike, txtLikes, txtDislikes);
+}
+
+renderCard();
