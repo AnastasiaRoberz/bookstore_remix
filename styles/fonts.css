@@ -43,14 +43,13 @@
     format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
-html {
+html, button {
   font-size: 16px;
   text-align: center;
   color: var(--text-main);
 
   font-family: "Plus Jakarta Sans";
   font-weight: 400;
-
   text-wrap-style: pretty;
 }
 

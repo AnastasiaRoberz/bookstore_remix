@@ -15,12 +15,28 @@ header {
 .header-content {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  width: 100%;
   max-width: 1440px;
   padding: 0 120px;
 
   .logo {
     height: 64px;
     width: 64px;
+  }
+
+  nav {
+    display: flex;
+    gap: 32px;
+  }
+
+  .btn-add-user {
+    background-color: var(--neon-cyan);
+    padding: 8px 16px;
+    border-radius: 10px;
+    color: var(--bg-input);
+    font-weight: 600;
+    line-height: 80%;
   }
 }
 

@@ -53,7 +53,10 @@ function updateDislikeStatus(i) {
   }
 }
 
-function updateLikesContent(i, btnLike, btnDislike, txtLikes, txtDislikes) {
+function updateLikesContent(i, btnSave, btnLike, btnDislike, txtLikes, txtDislikes) {
+  if (btnSave) {
+    btnSave.classList.toggle("icon-save-checked", hobbys[i].saved);
+  }
   btnLike.classList.toggle("icon-like-checked", hobbys[i].liked);
   btnDislike.classList.toggle("icon-dislike-checked", hobbys[i].disliked);
   txtLikes.innerText = hobbys[i].likes;

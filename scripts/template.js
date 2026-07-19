@@ -5,7 +5,7 @@ function cardTemplate(i, cardInfos) {
     <hr>
     <div class="img-wrapper">
       <img class="hobby-img" src="./assets/pngs/${hobbys[i].imgName}" alt="${hobbys[i].alt}">
-      <svg class="icon-save" onclick="saveCard()">
+      <svg class="icon-save" onclick="saveCard(${i}, this)">
         <use href="./assets/icons/icons.svg#icon-save"></use>
       </svg>
     </div>
@@ -18,7 +18,7 @@ function cardTemplate(i, cardInfos) {
         <p>
           ${hobbys[i].comments.length} Gleichgesinnte rechtfertigen hier ihre Fehlinvestitionen.
         </p>
-        <button class="btn-open-comments" id="btn-dialog-card${i}" onclick="openDialog(${i}, 'dialog')">Akte der Schande öffnen</button> 
+        <button class="btn-open-comments" id="btn-dialog-card${i}" onclick="openDialog(${i})">Akte der Schande öffnen</button> 
       </div>
     </div>
   </article>

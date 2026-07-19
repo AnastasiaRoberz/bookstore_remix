@@ -25,18 +25,19 @@
     <header>
       <div class="header-content">
         <img class="logo" src="./assets/pngs/logo.png" alt="" />
-      </div>
-      <nav>
-        <a href="">Gespeichert</a>
-      </nav>
-      <div class="login">
-        <input
-          type="text"
-          name=""
-          id="user-input"
-          placeholder="enter an username"
-        />
-        <button onclick="addUser()">User anlegen</button>
+        <nav>
+          <button class="nav-btn" onclick="renderCard()">Alle Einträge</button>
+          <button class="nav-btn" onclick="renderSavedCards()">Gespeicherte</button>
+        </nav>
+
+        <div class="login">
+          <input
+            type="text"
+            id="user-input"
+            placeholder="enter an username"
+          />
+          <button class="btn-add-user" onclick="addUser()">User speichern</button>
+        </div>
       </div>
     </header>
 
@@ -49,8 +50,7 @@
         id="card-dialog"
         onclick="closeDialog()"
         onclose="this.classList.remove('opened')"
-      >
-      </dialog>
+      ></dialog>
     </main>
 
     <footer></footer>
