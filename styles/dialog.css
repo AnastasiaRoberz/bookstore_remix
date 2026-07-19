@@ -1,0 +1,122 @@
+dialog.opened {
+  width: 135vh;
+  height: 90vh;
+  margin: auto;
+
+  background-color: var(--bg-card);
+  border-color: transparent;
+  border-radius: 40px;
+  color: var(--text-main);
+  position: relative;
+
+  .icon-close {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    align-content: center;
+    background-color: transparent;
+    border-color: transparent;
+
+    position: absolute;
+    right: 16px;
+    top: 16px;
+  }
+
+  .icon-close-svg {
+    width: 32px;
+    height: 32px;
+    fill: white;
+  }
+}
+
+.dialog-content {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 32px;
+  width: 100%;
+  height: 100%;
+  padding: 32px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.content-left {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.content-right {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .comments-wrapper {
+    overflow-y: scroll;
+    margin: 16px 0;
+    flex: 1;
+    min-height: 0;
+    max-height: 100%;
+    width: auto;
+  }
+
+  .comment {
+    padding: 8px;
+    margin-bottom: 8px;
+    margin-right: 8px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    text-align: left;
+  }
+
+  .comment-content {
+    margin-left: 16px;
+  }
+
+  .comment-table {
+    display: none;
+    width: 100%;
+    margin-top: 8px;
+
+    th {
+      width: 33%;
+    }
+  }
+
+  .send-comment {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    bottom: 0;
+    width: 100%;
+    height: fit-content;
+  }
+
+  .send-comment-input {
+    background-color: var(--bg-input);
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+    width: 100%;
+    height: 24px;
+    padding: 8px;
+    border-bottom: 2px solid var(--neon-cyan);
+  }
+
+  .send-comment-btn {
+    height: 16px;
+    width: 16px;
+    fill: var(--neon-cyan);
+  }
+}
+
+dialog.opened::backdrop {
+  background-color: rgba(20, 24, 33, 0.7);
+  backdrop-filter: blur(5px);
+  transition: all 200ms ease-in-out;
+}

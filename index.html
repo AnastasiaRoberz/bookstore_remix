@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="./styles/header-footer.css" />
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="./styles/card.css" />
+    <link rel="stylesheet" href="./styles/dialog.css" />
+    <link rel="stylesheet" href="./styles/assets.css" />
     <link rel="stylesheet" href="./styles/responsive.css" />
 
     <script src="./scripts/data.js" defer></script>
@@ -43,6 +45,13 @@
       <h1>Die Galerie der teuren Staubfänger</h1>
 
       <section class="card-wrapper" id="card-wrapper"></section>
+
+      <dialog
+        id="card-dialog"
+        onclick="closeDialog()"
+        onclose="this.classList.remove('opened')"
+      >
+      </dialog>
     </main>
 
     <footer></footer>
