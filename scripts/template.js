@@ -1,4 +1,4 @@
-function cardTemplate(i, type, cardInfos) {
+function cardTemplate(i, cardInfos) {
   return /*html*/ `
   <article class="card" id="card${i}">
     <h2>${hobbys[i].title}</h2>
@@ -13,7 +13,7 @@ function cardTemplate(i, type, cardInfos) {
     <table class="infos" id="info-card${i}">${cardInfos}</table>
     <hr>
     <div class="bottom-section">
-      ${likesTemplate(i, type)}
+      ${likesTemplate(i)}
       <div class="open-comments">
         <p>
           ${hobbys[i].comments.length} Gleichgesinnte rechtfertigen hier ihre Fehlinvestitionen.
@@ -44,20 +44,20 @@ function infoTableTemplate(avgCosts, avgDuration, avgLevel) {
   `;
 }
 
-function likesTemplate(i, type) {
+function likesTemplate(i) {
   return /*html*/ `
     <div class="likes-wrapper">
       <div class="like">
-        <svg class="icon-like" id="icon-like-${type}${i}" onclick="likeCard(${i}, ${type})">
+        <svg class="icon-like" id="icon-like-card${i}" onclick="likeCard(${i}, card)">
           <use href="./assets/icons/icons.svg#icon-like"></use>
         </svg>
-        <p class="like-number" id="likes-${type}${i}">${hobbys[i].likes}</p>
+        <p class="like-number" id="likes-card${i}">${hobbys[i].likes}</p>
       </div>
       <div class="like">
-        <svg class="icon-dislike" id="icon-disliked-${type}${i}" onclick="dislikeCard(${i}, ${type})">
+        <svg class="icon-dislike" id="icon-disliked-card${i}" onclick="dislikeCard(${i}, card)">
           <use href="./assets/icons/icons.svg#icon-dislike"></use>
         </svg>
-        <p class="dislike-number" id="dislikes-${type}${i}">${hobbys[i].dislikes}</p>
+        <p class="dislike-number" id="dislikes-card${i}">${hobbys[i].dislikes}</p>
       </div>
     </div>
     `;

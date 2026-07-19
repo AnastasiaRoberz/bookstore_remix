@@ -1,12 +1,12 @@
-function likeCard(i, type) {
+function likeCard(i) {
   let statusLiked = hobbys[i].liked;
   let statusDisliked = hobbys[i].disliked;
 
-  let buttonLike = document.getElementById(`icon-like-${type}${i}`);
-  let buttonDislike = document.getElementById(`icon-disliked-${type}${i}`);
+  let buttonLike = document.getElementById(`icon-like-card${i}`);
+  let buttonDislike = document.getElementById(`icon-disliked-card${i}`);
 
-  let likes = document.getElementById(`likes-${type}${i}`);
-  let dislikes = document.getElementById(`dislikes-${type}${i}`);
+  let likes = document.getElementById(`likes-card${i}`);
+  let dislikes = document.getElementById(`dislikes-card${i}`);
 
   if (statusLiked === false) {
     hobbys[i].liked = true;
@@ -28,15 +28,15 @@ function likeCard(i, type) {
   }
 }
 
-function dislikeCard(i, type) {  
+function dislikeCard(i) {  
   let statusLiked = hobbys[i].liked;
   let statusDisliked = hobbys[i].disliked;
 
-  let buttonLike = document.getElementById(`icon-like-${type}${i}`);
-  let buttonDislike = document.getElementById(`icon-disliked-${type}${i}`);
+  let buttonLike = document.getElementById(`icon-like-card${i}`);
+  let buttonDislike = document.getElementById(`icon-disliked-card${i}`);
 
-  let likes = document.getElementById(`likes-${type}${i}`);
-  let dislikes = document.getElementById(`dislikes-${type}${i}`);
+  let likes = document.getElementById(`likes-card${i}`);
+  let dislikes = document.getElementById(`dislikes-card${i}`);
 
   if (statusDisliked === false) {
     hobbys[i].disliked = true;

@@ -57,17 +57,17 @@ function renderInfoTable(i) {
   return infoContent;
 }
 
-function renderCard(type) {
+function renderCard() {
   const cardWrapperRef = document.getElementById("card-wrapper");
 
   for (let i = 0; i < hobbys.length; i++) {
     const cardInfos = renderInfoTable(i);
-    cardWrapperRef.innerHTML += cardTemplate(i, type, cardInfos);
+    cardWrapperRef.innerHTML += cardTemplate(i, cardInfos);
     initialLikeStatus(i);
   }
 }
 
-function initialLikeStatus(i, type) {
+function initialLikeStatus(i) {
     let btnLike = document.getElementById(`icon-like-card${i}`);
     let btnDislike = document.getElementById(`icon-disliked-card${i}`); 
 
