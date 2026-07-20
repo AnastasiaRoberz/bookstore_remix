@@ -73,3 +73,40 @@ function getLikeElements(container) {
   }
   return elements;
 }
+
+function saveToLocalStorage() {
+  localStorage.setItem("hobbys", JSON.stringify(hobbys));
+}
+
+function getFromLocalStorage() {
+  let storageArray = JSON.parse(localStorage.getItem("hobbys"));
+  if (storageArray) {
+    hobbys = storageArray;
+  }
+}
+
+function bubblingProtection(event) {
+  event.stopPropagation();
+}
+
+function createNewComment(content) {
+  let user = "[unknown user]";
+  if (localStorage.getItem("userName")) {
+    user = localStorage.getItem("userName");
+  }
+  return {
+    userName: user,
+    commentContent: content,
+    costs: 68,
+    duration: 30,
+    euphoriaLevel: 6,
+  };
+}
+
+function renderInfoTable(i) {
+  let avgCosts = formatPrice(getAverage(i, "costs"));
+  let avgDuration = Math.trunc(getAverage(i, "duration"));
+  let avgLevel = roundNumber(getAverage(i, "euphoriaLevel"));
+
+  return infoTableTemplate(avgCosts, avgDuration, avgLevel);
+}
