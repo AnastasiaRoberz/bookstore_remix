@@ -1,3 +1,4 @@
+//#region BERECHNUNGEN
 function roundNumber(value, digits) {
   let roundedNumber = value.toLocaleString("de-DE", {
     maximumFractionDigits: digits,
@@ -17,14 +18,29 @@ function formatPrice(value) {
 
 function getAverage(i, value) {
     let sum = 0;
+    let commentsLength = hobbys[i].comments.length;
 
-    for (let j = 0; j < hobbys[i].comments.length; j++) {
+    if (commentsLength === 0) {
+      return 0;
+    }
+
+    for (let j = 0; j < commentsLength; j++) {
         sum += hobbys[i].comments[j][value];
     }
 
-    return sum / hobbys[i].comments.length;
+    return sum / commentsLength;
 }
 
+function renderInfoTable(i) {
+  let avgCosts = formatPrice(getAverage(i, "costs"));
+  let avgDuration = Math.trunc(getAverage(i, "duration"));
+  let avgLevel = roundNumber(getAverage(i, "euphoriaLevel"), 1);
+
+  return infoTableTemplate(avgCosts, avgDuration, avgLevel);
+}
+//#endregion
+
+//#region LIKE STATUS
 function updateLikeStatus(i) {  
   if (hobbys[i].liked === false) {
     hobbys[i].liked = true;
@@ -73,7 +89,25 @@ function getLikeElements(container) {
   }
   return elements;
 }
+//#endregion
 
+//#region CREATE CONTENT
+function createNewComment(content) {
+  let user = "[unknown user]";
+  if (localStorage.getItem("userName")) {
+    user = localStorage.getItem("userName");
+  }
+  return {
+    userName: user,
+    commentContent: content,
+    costs: 68,
+    duration: 30,
+    euphoriaLevel: 6,
+  };
+}
+//#endregion
+
+//#region STORAGE & BUBBLING
 function saveToLocalStorage() {
   localStorage.setItem("hobbys", JSON.stringify(hobbys));
 }
@@ -88,25 +122,4 @@ function getFromLocalStorage() {
 function bubblingProtection(event) {
   event.stopPropagation();
 }
-
-function createNewComment(content) {
-  let user = "[unknown user]";
-  if (localStorage.getItem("userName")) {
-    user = localStorage.getItem("userName");
-  }
-  return {
-    userName: user,
-    commentContent: content,
-    costs: 68,
-    duration: 30,
-    euphoriaLevel: 6,
-  };
-}
-
-function renderInfoTable(i) {
-  let avgCosts = formatPrice(getAverage(i, "costs"));
-  let avgDuration = Math.trunc(getAverage(i, "duration"));
-  let avgLevel = roundNumber(getAverage(i, "euphoriaLevel"), 1);
-
-  return infoTableTemplate(avgCosts, avgDuration, avgLevel);
-}
+//#endregion
