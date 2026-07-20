@@ -1,7 +1,7 @@
 //#region BERECHNUNGEN
-function roundNumber(value, digits) {
+function roundNumber(value) {
   let roundedNumber = value.toLocaleString("de-DE", {
-    maximumFractionDigits: digits,
+    maximumFractionDigits: 1,
   });
   return roundedNumber;
 }
@@ -34,7 +34,7 @@ function getAverage(i, value) {
 function renderInfoTable(i) {
   let avgCosts = formatPrice(getAverage(i, "costs"));
   let avgDuration = Math.trunc(getAverage(i, "duration"));
-  let avgLevel = roundNumber(getAverage(i, "euphoriaLevel"), 1);
+  let avgLevel = roundNumber(getAverage(i, "euphoriaLevel"));
 
   return infoTableTemplate(avgCosts, avgDuration, avgLevel);
 }

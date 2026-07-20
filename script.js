@@ -59,7 +59,9 @@ function openDialog(i) {
 }
 
 function closeDialog() {
-  dialogRef.close();
+  if (dialogRef.open) {
+    dialogRef.close();
+  }
   dialogRef.classList.remove("opened");
   document.body.classList.remove("dialog-open");
   renderCard(currentView);
@@ -77,19 +79,8 @@ function renderComments(i) {
 
 function renderDialog(i) {
   dialogRef.innerHTML = "";
-  const infos = renderInfoTable(i);
   const comments = renderComments(i);
-  dialogRef.innerHTML += getDialogTemplate(i, infos, comments);
-  let elements = getLikeElements(dialogRef);
-
-  updateLikesContent(
-    i,
-    null,
-    elements.btnLike,
-    elements.btnDislike,
-    elements.txtLikes,
-    elements.txtDislikes
-  );
+  dialogRef.innerHTML += getDialogTemplate(i, comments);
 }
 //#endregion
 

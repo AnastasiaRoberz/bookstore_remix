@@ -86,9 +86,9 @@ function likesTemplate(i) {
 //#endregion
 
 //#region DIALOG-TEMPLATES
-function getDialogTemplate(i, cardInfos, comments) {
+function getDialogTemplate(i, comments) {
   return /*html*/ `
-    <div class="dialog-content" id="dialog-content${i}" onclick=event.stopPropagation()>
+    <div class="dialog-content" id="dialog-content${i}" onclick="event.stopPropagation()">
       <header class="dialog-header">
         <h2 class="dialog-heading">${hobbys[i].title}</h2>
         ${closeBtnTemplate()}
