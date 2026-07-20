@@ -1,3 +1,24 @@
+//#region USER-TEMPLATES
+function loginTemplate() {
+  return /*html*/ `
+    <input
+      type="text"
+      class="user-name-input"
+      id="user-input"
+      placeholder="Dein Username"
+    />
+    <button class="btn-add-user" onclick="addUser()">User speichern</button>
+  `;
+}
+
+function welcomeTemplate(userName) {
+  return /*html*/ `
+    <p>Willkommen ${userName}!</p>
+  `;
+}
+//#endregion
+
+//#region CARD-TEMPLATES
 function cardTemplate(i, cardInfos) {
   return /*html*/ `
   <article class="card" id="card${i}">
@@ -10,7 +31,7 @@ function cardTemplate(i, cardInfos) {
       </svg>
     </div>
     <hr>
-    <table class="infos" id="info-card${i}">${cardInfos}</table>
+    ${cardInfos}
     <hr>
     <div class="bottom-section">
       ${likesTemplate(i)}
@@ -27,7 +48,7 @@ function cardTemplate(i, cardInfos) {
 
 function infoTableTemplate(avgCosts, avgDuration, avgLevel) {
   return /*html*/ `
-    
+    <table class="infos">
       <tr>
         <th>⌀ Dopamin-Steuer</th>
         <td>${avgCosts}</td>
@@ -60,19 +81,17 @@ function likesTemplate(i) {
         <p class="dislike-number" id="dislikes-card${i}">${hobbys[i].dislikes}</p>
       </div>
     </div>
-    `;
+  `;
 }
+//#endregion
 
+//#region DIALOG-TEMPLATES
 function getDialogTemplate(i, cardInfos, comments) {
   return /*html*/ `
     <div class="dialog-content" id="dialog-content${i}" onclick=event.stopPropagation()>
       <header class="dialog-header">
         <h2 class="dialog-heading">${hobbys[i].title}</h2>
-        <button class="icon-close" onclick="closeDialog()">
-          <svg class="icon-close-svg">
-            <use href="./assets/icons/icons.svg#icon-close"></use>
-          </svg>
-        </button>
+        ${closeBtnTemplate()}
       </header>
       <hr>
       <main class="dialog-main">
@@ -93,29 +112,24 @@ function getDialogTemplate(i, cardInfos, comments) {
   `;
 }
 
-function commentsTemplate(i, j) {
+function commentsTemplate(comment) {
   return /*html*/ `
     <article class="comment">
-      <p class="user">${hobbys[i].comments[j].userName}</p>
-      <p class="comment-content">${hobbys[i].comments[j].commentContent}</p>
+      <p class="user">${comment.userName}</p>
+      <p class="comment-content">${comment.commentContent}</p>
     </article>
   `;
 }
+//#endregion
 
-function loginTemplate() {
-  return /*html*/ `
-      <input
-        type="text"
-        class="user-name-input"
-        id="user-input"
-        placeholder="enter an username"
-      />
-      <button class="btn-add-user" onclick="addUser()">User speichern</button>
-  `;
+//#region ASSETS
+function closeBtnTemplate() {
+  return /*html*/`
+    <button class="icon-close" onclick="closeDialog()">
+      <svg class="icon-close-svg">
+        <use href="./assets/icons/icons.svg#icon-close"></use>
+      </svg>
+    </button>
+  `
 }
-
-function welcomeTemplate(userName) {
-  return /*html*/ `
-    <p>Willkommen ${userName}!</p>
-  `;
-}
+//#endregion

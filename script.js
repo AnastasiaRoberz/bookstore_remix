@@ -1,19 +1,19 @@
-// #region 1. GLOBALE VARIABLEN
+//#region GLOBALE VARIABLEN
 const dialogRef = document.getElementById("card-dialog");
 const cardWrapperRef = document.getElementById("card-wrapper");
 const headingRef = document.getElementById("main-heading");
 let currentView = "all";
-// #endregion
+//#endregion
 
-// #region 2. APP INITIALISIERUNG
+//#region INITIALISIERUNG
 function init() {
   getFromLocalStorage();
   renderHeader(); // Aus auth.js
   renderCard("all");
 }
-// #endregion
+//#endregion
 
-// #region 3. RENDER MAIN GALLERY
+//#region RENDER MAIN GALLERY
 function setHeading(viewType) {
   if (viewType === "all") {
     headingRef.innerText = "Die Galerie der teuren Staubfänger";
@@ -48,9 +48,9 @@ function renderCard(viewType) {
     renderSingleCard(i);
   }
 }
-// #endregion
+//#endregion
 
-// #region 4. RENDER DIALOG
+//#region RENDER DIALOG
 function openDialog(i) {
   dialogRef.showModal();
   dialogRef.classList.add("opened");
@@ -67,10 +67,10 @@ function closeDialog() {
 
 function renderComments(i) {
   let comments = "";
-  let arrayLength = hobbys[i].comments.length;
+  let currentComments = hobbys[i].comments;
 
-  for (let j = arrayLength - 1; j >= 0; j--) {
-    comments += commentsTemplate(i, j);
+  for (let j = currentComments.length - 1; j >= 0; j--) {
+    comments += commentsTemplate(currentComments[j]);
   }
   return comments;
 }
@@ -91,9 +91,9 @@ function renderDialog(i) {
     elements.txtDislikes
   );
 }
-// #endregion
+//#endregion
 
-// #region 5. USER INTERACTIONS
+//#region USER INTERACTIONS
 function addComment(i) {
   const commentInputRef = document.getElementById(`send-comment-input${i}`);
   const commentsRef = document.getElementById("comments-wrapper");
@@ -141,6 +141,6 @@ function saveCard(i, elementRef) {
     elementRef.classList.toggle("icon-save-checked");
   }
 }
-// #endregion
+//#endregion
 
 init();
