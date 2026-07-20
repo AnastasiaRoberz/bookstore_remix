@@ -23,7 +23,7 @@ function setHeading(viewType) {
 }
 
 function renderSingleCard(i) {
-  let cardInfos = renderInfoTable(i); // Nutzt Helper-Funktion
+  let cardInfos = renderInfoTable(i);
   cardWrapperRef.innerHTML += cardTemplate(i, cardInfos);
   let cardContainer = document.getElementById(`card${i}`);
   let elements = getLikeElements(cardContainer);

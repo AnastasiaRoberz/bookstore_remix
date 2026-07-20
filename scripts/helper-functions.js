@@ -106,7 +106,7 @@ function createNewComment(content) {
 function renderInfoTable(i) {
   let avgCosts = formatPrice(getAverage(i, "costs"));
   let avgDuration = Math.trunc(getAverage(i, "duration"));
-  let avgLevel = roundNumber(getAverage(i, "euphoriaLevel"));
+  let avgLevel = roundNumber(getAverage(i, "euphoriaLevel"), 1);
 
   return infoTableTemplate(avgCosts, avgDuration, avgLevel);
 }

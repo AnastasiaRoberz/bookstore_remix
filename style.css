@@ -1,9 +1,8 @@
 * {
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
   scroll-behavior: smooth;
-  user-select: none;
 }
 
 body {
@@ -54,4 +53,5 @@ input {
 
 svg {
   display: block;
+  cursor: pointer;
 }

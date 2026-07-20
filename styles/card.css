@@ -19,7 +19,7 @@
 }
 
 .card-heading {
-  height: 66px;
+  min-height: 66px;
   align-content: center;
 }
 
@@ -28,28 +28,37 @@
   height: auto;
 
   position: relative;
+
+  .hobby-img {
+    aspect-ratio: 2 / 1;
+    max-width: 100%;
+    min-height: 0;
+    object-fit: cover;
+  }
+
+  .icon-save {
+    width: 32px;
+    height: 40px;
+    position: absolute;
+    right: 0;
+    top: 4px;
+    stroke: var(--neon-cyan);
+    stroke-width: 0.4px;
+    fill: rgba(255, 255, 255, 0.2);
+  }
+  
+  .icon-save-checked {
+    fill: var(--neon-cyan);
+  }
 }
 
-.hobby-img {
-  aspect-ratio: 2 / 1;
-  max-width: 100%;
-  min-height: 0;
-  object-fit: cover;
-}
+.infos {
+  text-align: left;
+  width: 260px;
 
-.icon-save {
-  width: 32px;
-  height: 40px;
-  position: absolute;
-  right: 0px;
-  top: 4px;
-  stroke: var(--neon-cyan);
-  stroke-width: 0.4px;
-  fill: rgba(255, 255, 255, 0.2);
-}
-
-.icon-save-checked {
-  fill: var(--neon-cyan);
+  th {
+    padding-right: 32px;
+  }
 }
 
 .bottom-section {
@@ -97,15 +106,6 @@
     }
 }
 
-.infos {
-  text-align: left;
-  width: 260px;
-
-  th {
-    padding-right: 32px;
-  }
-}
-
 .open-comments {
   display: flex;
   flex-direction: column;
@@ -125,5 +125,3 @@
   color: var(--bg-input);
   font-weight: 600;
 }
-
-
