@@ -1,9 +1,8 @@
 * {
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
   scroll-behavior: smooth;
-  user-select: none;
 }
 
 body {
@@ -17,27 +16,27 @@ body {
   background-color: var(--bg-dark);
 }
 
-main {
+.index-main {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  max-width: 1440px;
   gap: 32px;
   flex-wrap: wrap;
   flex: 1;
-  padding: 32px;
+  padding: clamp(24px, calc(15.549px + 2.254vw), 48px) clamp(16px, 3.68vw + 2.2px, 55.2px);
 }
 
 hr {
   border: 1.2px solid var(--neon-cyan);
   width: 100%;
-  margin: 16px 0;
+  margin: clamp(8px, calc(5.183px + 0.751vw), 16px) 0;
 }
 
 button {
   background: none;
   border: none;
-  color: var(--text-main);
   cursor: pointer;
 }
 
@@ -53,4 +52,18 @@ input {
 
 svg {
   display: block;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 1024px) {
+  /* .header-content .add-user-btn {
+    display: block;
+    fill: var(--neon-cyan);
+    width: 24px;
+    height: 24px; 
+  }
+
+  .add-user-text {
+    display: none;
+  } */
 }

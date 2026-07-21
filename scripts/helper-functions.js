@@ -1,30 +1,4 @@
-function roundNumber(value, digits) {
-  let roundedNumber = value.toLocaleString("de-DE", {
-    maximumFractionDigits: digits,
-  });
-  return roundedNumber;
-}
-
-function formatPrice(value) {
-    let formattedPrice = value.toLocaleString("de-DE", {
-        style: "currency",
-        currency: "EUR"
-    });
-    formattedPrice = formattedPrice.replace(/\s/, "");
-
-    return formattedPrice;
-}
-
-function getAverage(i, value) {
-    let sum = 0;
-
-    for (let j = 0; j < hobbys[i].comments.length; j++) {
-        sum += hobbys[i].comments[j][value];
-    }
-
-    return sum / hobbys[i].comments.length;
-}
-
+//#region LIKE STATUS
 function updateLikeStatus(i) {  
   if (hobbys[i].liked === false) {
     hobbys[i].liked = true;
@@ -53,7 +27,13 @@ function updateDislikeStatus(i) {
   }
 }
 
-function updateLikesContent(i, btnSave, btnLike, btnDislike, txtLikes, txtDislikes) {
+function updateLikesContent(i) {
+  const btnLike = document.getElementById(`icon-like-card${i}`);
+  const txtLikes = document.getElementById(`likes-card${i}`);
+  const btnDislike = document.getElementById(`icon-dislike-card${i}`);
+  const txtDislikes = document.getElementById(`dislikes-card${i}`);
+  const btnSave = document.getElementById(`icon-save-card${i}`);
+  
   if (btnSave) {
     btnSave.classList.toggle("icon-save-checked", hobbys[i].saved);
   }
@@ -62,3 +42,40 @@ function updateLikesContent(i, btnSave, btnLike, btnDislike, txtLikes, txtDislik
   txtLikes.innerText = hobbys[i].likes;
   txtDislikes.innerText = hobbys[i].dislikes;
 }
+//#endregion
+
+//#region CREATE CONTENT
+function createNewComment(content) {
+  if (localStorage.getItem("userName")) {
+    currentUser = localStorage.getItem("userName");
+  }
+  return {
+    userName: currentUser,
+    commentContent: content,
+  };
+}
+
+function getCommentActions(i, j) { 
+  if (hobbys[i].comments[j].userName === currentUser && currentUser != "[unknown user]") {
+    return commentActionsTemplate(i, j);
+  }
+  return "";
+}
+//#endregion
+
+//#region STORAGE & BUBBLING
+function saveToLocalStorage() {
+  localStorage.setItem("hobbys", JSON.stringify(hobbys));
+}
+
+function getFromLocalStorage() {
+  let storageArray = JSON.parse(localStorage.getItem("hobbys"));
+  let storageUser = localStorage.getItem("userName");
+  if (storageArray) hobbys = storageArray;
+  if (storageUser) currentUser = storageUser;
+}
+
+function bubblingProtection(event) {
+  event.stopPropagation();
+}
+//#endregion

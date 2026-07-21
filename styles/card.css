@@ -2,119 +2,160 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 32px;
+  gap: clamp(16px, calc(-2.337px + 2.385vw), 32px) clamp(8px, calc(-77.714px + 10.714vw), 32px);
 }
 
 .card {
   width: 350px;
-
+  max-width: 350px;
+  height: 700px;
   background-color: var(--bg-card);
   border-radius: 30px;
-
   display: flex;
   flex-direction: column;
   align-items: center;
-
   padding: 16px;
 }
 
-.img-wrapper {
-  width: 100%;
-  height: auto;
-
-  position: relative;
+.card-heading {
+  min-height: clamp(58px, calc(55.183px + 0.751vw), 66px);
+  align-content: center;
 }
 
 .hobby-img {
   aspect-ratio: 2 / 1;
-  width: 100%;
-  object-fit: cover;
-}
-
-.icon-save {
-  width: 32px;
-  height: 40px;
-  position: absolute;
-  right: 0px;
-  top: 4px;
-  stroke: var(--neon-cyan);
-  stroke-width: 0.4px;
-  fill: rgba(255, 255, 255, 0.2);
-}
-
-.icon-save-checked {
-  fill: var(--neon-cyan);
-}
-
-.bottom-section {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  gap: 8px;
-}
-
-.likes-wrapper {
-    display: flex;
-    justify-content: center;
-    width: 75%;
-    margin-bottom: 8px;
-
-    .like {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 8px;
-        text-align: left;
-        width: 50%;
-    }
-
-    .icon-like {
-        width: 24px;
-        height: 32px;
-        stroke: var(--neon-green);
-        fill: var(--bg-card);
-    }
-
-    .icon-like-checked {
-      fill: var(--neon-green);
-    }
-
-    .icon-dislike {
-        width: 24px;
-        height: 32px;
-        stroke: var(--neon-pink);
-        fill: var(--bg-card);
-    }
-
-    .icon-dislike-checked {
-      fill: var(--neon-pink);
-    }
+  max-width: 100%;
+  min-height: 0;
 }
 
 .infos {
   text-align: left;
-  width: calc(100% - 32px);
+  width: 260px;
+
+  th {
+    padding-right: 32px;
+  }
 }
 
-.open-comments {
+.likes-wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  height: fit-content;
+  margin-bottom: clamp(16px, calc(10.366px + 1.502vw), 32px);
+
+  .like-buttons {
+    display: flex;
+    gap: 32px;
+    width: 70%;
+  }
+
+  .like {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-align: left;
+    width: 50%;
+  }
+
+  .icon-like {
+    height: 24px;
+    width: 24px;
+    stroke: var(--neon-green);
+    stroke-width: 0.5px;
+    fill: var(--bg-card);
+  }
+
+  .icon-like-checked {
+    fill: var(--neon-green);
+  }
+
+  .icon-dislike {
+    height: 24px;
+    width: 24px;
+    stroke: var(--neon-pink);
+    stroke-width: 0.5px;
+    fill: var(--bg-card);
+  }
+
+  .icon-dislike-checked {
+    fill: var(--neon-pink);
+  }
+
+  .icon-save {
+    height: 24px;
+    width: 24px;
+    stroke: var(--neon-cyan);
+    stroke-width: 0.5px;
+    fill: var(--bg-card);
+    margin-left: auto;
+  }
+
+  .icon-save-checked {
+    fill: var(--neon-cyan);
+  }
+}
+
+.comments-wrapper {
+  overflow-y: auto;
+  margin: 16px 0;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  gap: 16px;
+}
+
+.comment {
+  padding: 8px;
+  margin-right: 8px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  text-align: left;
+
+  .comment-infos {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .comment-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .btn-comment-actions {
+    width: 16px;
+    height: 16px;
+    fill: white;
+  }
+
+  .comment-content {
+    margin-left: 16px;
+  }
+}
+
+.send-comment {
+  display: flex;
   align-items: center;
   gap: 16px;
-  padding: 8px;
+  bottom: 0;
+  width: 100%;
+  height: 32px;
 
-  border: 1px solid var(--border-color);
-  border-radius: 10px;
+  .send-comment-input {
+    height: 100%;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+    border-bottom: 2px solid var(--neon-cyan);
+  }
+
+  .send-comment-btn {
+    height: 16px;
+    width: 16px;
+    fill: var(--neon-cyan);
+  }
 }
-
-.btn-open-comments {
-  background-color: var(--neon-cyan);
-  border-radius: 10px;
-  padding: 8px;
-
-}
-
-

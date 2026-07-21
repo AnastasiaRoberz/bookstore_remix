@@ -1,140 +1,114 @@
-const dialogRef = document.getElementById("card-dialog");
+//#region GLOBALE VARIABLEN
+const cardWrapperRef = document.getElementById("card-wrapper");
+const headingRef = document.getElementById("main-heading");
+let currentView = "all";
+let currentUser = "[unknown user]";
+//#endregion
 
-function calcAvgCosts(i) {
-  let avgCosts = getAverage(i, "costs");
-  return formatPrice(avgCosts);
+//#region INITIALISIERUNG
+function init() {
+  getFromLocalStorage();
+  renderHeader();
+  renderAllCards("all");
 }
+//#endregion
 
-function calcAvgDuration(i) {
-  let avgDuration = getAverage(i, "duration");
-  return Math.trunc(avgDuration);
-}
-
-function calcAvgEuphoriaLevel(i) {
-  let avgLevel = getAverage(i, "euphoriaLevel");
-  return roundNumber(avgLevel, 1);
-}
-
-function renderInfoTable(i) {
-  let avgCosts = calcAvgCosts(i);
-  let avgDuration = calcAvgDuration(i);
-  let avgLevel = calcAvgEuphoriaLevel(i);
-  let infoContent = "";
-
-  infoContent = infoTableTemplate(avgCosts, avgDuration, avgLevel);
-
-  return infoContent;
-}
-
-function renderCard() {
-  const cardWrapperRef = document.getElementById("card-wrapper");
-  cardWrapperRef.innerHTML = "";
-
-  for (let i = 0; i < hobbys.length; i++) {
-    let cardInfos = renderInfoTable(i);
-    cardWrapperRef.innerHTML += cardTemplate(i, cardInfos);
-    let cardContainer = document.getElementById(`card${i}`);
-    let btnSave = cardContainer.querySelector(".icon-save");
-    let btnLike = cardContainer.querySelector(".icon-like");
-    let btnDislike = cardContainer.querySelector(".icon-dislike");
-    let txtLikes = cardContainer.querySelector(".like-number");
-    let txtDislikes = cardContainer.querySelector(".dislike-number");
-
-    updateLikesContent(i, btnSave, btnLike, btnDislike, txtLikes, txtDislikes);
+//#region RENDER MAIN GALLERY
+function setHeading(viewType) {
+  if (viewType === "all") {
+    headingRef.innerText = "Die Galerie der teuren Staubfänger";
+  } else if (viewType === "saved") {
+    headingRef.innerText = "Meine Favoriten des finanziellen Ruins";
   }
 }
 
-function openDialog(i) {
-  dialogRef.showModal();
-  dialogRef.classList.add("opened");
-  renderDialog(i);
+function renderAllCards(viewType) {
+  currentView = viewType;
+  cardWrapperRef.innerHTML = "";
+  setHeading(viewType);
+
+  for (let i = 0; i < hobbys.length; i++) {
+    if (viewType === "saved" && !hobbys[i].saved) continue;
+    renderSingleCard(i);
+  }
 }
 
-function closeDialog() {
-  dialogRef.close();
-  dialogRef.classList.remove("opened");
-  renderCard();
-}
+function renderSingleCard(i) {
+  let cardInfos = infoTableTemplate(hobbys[i].avgCosts, hobbys[i].avgDuration, hobbys[i].avgLevel);
 
-function bubblingProtection(event) {
-  event.stopPropagation();
+  cardWrapperRef.innerHTML += cardTemplate(i, cardInfos, renderComments(i));
+  updateLikesContent(i);
 }
 
 function renderComments(i) {
   let comments = "";
-  let arrayLength = hobbys[i].comments.length;
+  let currentComments = hobbys[i].comments;
 
-  for (let j = arrayLength -1; j >= 0; j--) {
-    comments += commentsTemplate(i, j);
+  for (let j = currentComments.length - 1; j >= 0; j--) {
+    let commentActions = getCommentActions(i, j);  
+    comments += commentTemplate(currentComments[j], commentActions);
   }
   return comments;
 }
+//#endregion
 
-function renderDialog(i) {
-  dialogRef.innerHTML = "";
-  const infos = renderInfoTable(i);
-  const comments = renderComments(i);
-  dialogRef.innerHTML += getDialogTemplate(i, infos, comments);
-  let btnLike = dialogRef.querySelector(".icon-like");
-  let btnDislike = dialogRef.querySelector(".icon-dislike");
-  let txtLikes = dialogRef.querySelector(".like-number");
-  let txtDislikes = dialogRef.querySelector(".dislike-number");
-
-  updateLikesContent(i, btnLike, btnDislike, txtLikes, txtDislikes);
-}
-
-function addComment(i) {
-  const commentInputRef = document.getElementById(`send-comment-input${i}`);
-  const commentsRef = document.getElementById("comments-wrapper");
-  console.log(commentInputRef);
-  commentsRef.innerHTML = "";
-  let content = commentInputRef.value;
-  let user = "TestUser2";
-  let newComment = {"userName": user, "commentContent": content, "costs": 68, "duration": 30, "euphoriaLevel": 6}
-  hobbys[i].comments.push(newComment);
-  
-  commentsRef.innerHTML = renderComments(i);
-  commentInputRef.value = "";
-}
-
-function likeCard(i, type, elementRef) {
-  let parentWrapper = elementRef.closest(".likes-wrapper");
-  let btnLike = parentWrapper.querySelector(".icon-like");
-  let txtLikes = parentWrapper.querySelector(".like-number");
-  let btnDislike = parentWrapper.querySelector(".icon-dislike");
-  let txtDislikes = parentWrapper.querySelector(".dislike-number");
-
+//#region USER INTERACTIONS
+function likeCard(i, type) {
   if (type === "like") {
     updateLikeStatus(i);
   } else if (type === "dislike") {
     updateDislikeStatus(i);
   }
-  updateLikesContent(i, btnLike, btnDislike, txtLikes, txtDislikes);
+  saveToLocalStorage();
+  updateLikesContent(i);
 }
 
 function saveCard(i, elementRef) {
   hobbys[i].saved = !hobbys[i].saved;
-  elementRef.classList.toggle("icon-save-checked");
-}
+  saveToLocalStorage();
 
-function renderSavedCards() {
-  const cardWrapperRef = document.getElementById("card-wrapper");
-  cardWrapperRef.innerHTML = "";
-
-  for (let i = 0; i < hobbys.length; i++) {
-    if (hobbys[i].saved === true) {
-      let cardInfos = renderInfoTable(i);
-      cardWrapperRef.innerHTML += cardTemplate(i, cardInfos);
-      let cardContainer = document.getElementById(`card${i}`);
-      let btnSave = cardContainer.querySelector(".icon-save");
-      let btnLike = cardContainer.querySelector(".icon-like");
-      let btnDislike = cardContainer.querySelector(".icon-dislike");
-      let txtLikes = cardContainer.querySelector(".like-number");
-      let txtDislikes = cardContainer.querySelector(".dislike-number");
-  
-      updateLikesContent(i, btnSave, btnLike, btnDislike, txtLikes, txtDislikes);
-    }
+  if (currentView === "saved") {
+    renderAllCards("saved");
+  } else {
+    elementRef.classList.toggle("icon-save-checked");
   }
 }
 
-renderCard();
+function addComment(i) {
+  const inputRef = document.getElementById(`send-comment-input${i}`);
+  const commentsRef = document.getElementById(`comments-wrapper-card${i}`);
+  let content = inputRef.value;
+
+  if (content === "") {
+    alert("Ein leerer Kommentar schützt niemanden vor Fehlkäufen!");
+    return;
+  } 
+
+  hobbys[i].comments.push(createNewComment(content));
+  saveToLocalStorage();
+  commentsRef.innerHTML = renderComments(i);
+  commentsRef.scrollTop = 0;
+  inputRef.value = "";
+}
+
+function editComment(i, commentIndex) {
+  const commentsRef = document.getElementById(`comments-wrapper-card${i}`);
+  let oldText = hobbys[i].comments[commentIndex].commentContent;
+  let newText = prompt("Bearbeite deinen Kommentar:", oldText);
+
+  if (newText !== null) {
+    hobbys[i].comments[commentIndex].commentContent = newText;
+    saveToLocalStorage();
+    commentsRef.innerHTML = renderComments(i);
+  }
+}
+
+function deleteComment(i, commentIndex) {
+  const commentsRef = document.getElementById(`comments-wrapper-card${i}`);
+  hobbys[i].comments.splice(commentIndex, 1);
+  saveToLocalStorage;
+  commentsRef.innerHTML = renderComments(i);
+}
+//#endregion
+
+init();

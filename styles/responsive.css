@@ -1,0 +1,27 @@
+@media screen and (max-width: 768px) {
+  .header-content {
+    .add-user-btn {
+      display: block;
+      fill: var(--neon-cyan);
+      width: 24px;
+      height: 24px; 
+    }
+
+    .add-user-text {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .header-content {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    .login {
+      align-self: flex-end;
+    }
+  }
+}
+

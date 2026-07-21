@@ -1,14 +1,13 @@
-header {
+.index-header {
   width: 100%;
-  height: 80px;
+  height: fit-content;
   background-color: var(--border-color);
-  border-bottom: 1px solid var(--border-color);
   position: sticky;
   top: 0;
   z-index: 2;
 
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 }
 
@@ -16,27 +15,51 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 8px;
   width: 100%;
   max-width: 1440px;
-  padding: 0 120px;
+  padding: 8px clamp(16px, 3.68vw + 2.2px, 55.2px);
 
-  .logo {
-    height: 64px;
-    width: 64px;
-  }
-
-  nav {
+  .header-content-left {
     display: flex;
-    gap: 32px;
+    gap: clamp(32px, calc(-4.674px + 4.769vw), 64px);
+
+    .logo {
+      display: block;
+      height: clamp(48px, calc(29.663px + 2.385vw), 64px);
+      width: auto;
+    }
+  
+    nav {
+      display: flex;
+      gap: clamp(16px, calc(-2.337px + 2.385vw), 32px);
+    }
   }
 
-  .btn-add-user {
+  .login {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .user-name-input {
+    width: auto;
+    min-width: 150px;
+    height: 28.8px;
+    flex-shrink: 0;
+  }
+
+  .add-user-text {
     background-color: var(--neon-cyan);
-    padding: 8px 16px;
+    padding: 4px 8px;
     border-radius: 10px;
     color: var(--bg-input);
     font-weight: 600;
     line-height: 80%;
+
+  }
+  .add-user-btn {
+    display: none;
   }
 }
 
@@ -45,7 +68,20 @@ footer {
   height: 80px;
   background-color: var(--border-color);
   border-bottom: 1px solid var(--border-color);
-  position: sticky;
-  top: 0;
-  z-index: 2;
+  margin-top: auto;
 }
+
+@media screen and (max-width: 1024px) {
+  /* .header-content .add-user-btn {
+    display: block;
+    fill: var(--neon-cyan);
+    width: 24px;
+    height: 24px; 
+  }
+
+  .add-user-text {
+    display: none;
+  } */
+}
+
+
