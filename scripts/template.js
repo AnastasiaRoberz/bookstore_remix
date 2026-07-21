@@ -119,14 +119,29 @@ function getDialogTemplate(i, comments) {
   `;
 }
 
-function commentsTemplate(comment, i, commentIndex) {
+function commentsTemplate(comment, commentActions) {
   return /*html*/ `
     <article class="comment">
-      <p class="user">${comment.userName}</p>
-      <div class="comment-actions" id="comment-actions"></div>
+      <div class="comment-infos">
+        <p class="user">${comment.userName}</p>
+        ${commentActions}
+      </div>
       <p class="comment-content">${comment.commentContent}</p>
     </article>
   `;
+}
+
+function commentActionsTemplate(i, commentIndex) {
+  return /*html*/`
+    <div class=comment-actions>
+      <svg class="btn-comment-actions" onclick="editComment(${i}, ${commentIndex})">
+        <use href="./assets/icons/icons.svg#icon-edit"></use>
+      </svg>  
+      <svg class="btn-comment-actions" onclick="deleteComment(${i}, ${commentIndex})">
+        <use href="./assets/icons/icons.svg#icon-trash"></use>
+      </svg>
+    </div>
+  `
 }
 //#endregion
 

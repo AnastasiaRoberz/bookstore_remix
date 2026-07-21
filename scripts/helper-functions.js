@@ -93,17 +93,23 @@ function getLikeElements(container) {
 
 //#region CREATE CONTENT
 function createNewComment(content) {
-  let user = "[unknown user]";
   if (localStorage.getItem("userName")) {
-    user = localStorage.getItem("userName");
+    currentUser = localStorage.getItem("userName");
   }
   return {
-    userName: user,
+    userName: currentUser,
     commentContent: content,
     costs: 68,
     duration: 30,
     euphoriaLevel: 6,
   };
+}
+
+function getCommentActions(i, j) { 
+  if (hobbys[i].comments[j].userName === currentUser) {
+    return commentActionsTemplate(i, j);
+  }
+  return "";
 }
 //#endregion
 
@@ -113,10 +119,11 @@ function saveToLocalStorage() {
 }
 
 function getFromLocalStorage() {
+  
   let storageArray = JSON.parse(localStorage.getItem("hobbys"));
-  if (storageArray) {
-    hobbys = storageArray;
-  }
+  let storageUser = localStorage.getItem("userName");
+  if (storageArray) hobbys = storageArray;
+  if (storageUser) currentUser = storageUser;
 }
 
 function bubblingProtection(event) {

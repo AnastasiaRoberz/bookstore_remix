@@ -3,12 +3,13 @@ const dialogRef = document.getElementById("card-dialog");
 const cardWrapperRef = document.getElementById("card-wrapper");
 const headingRef = document.getElementById("main-heading");
 let currentView = "all";
+let currentUser = "[unknown user]";
 //#endregion
 
 //#region INITIALISIERUNG
 function init() {
   getFromLocalStorage();
-  renderHeader(); // Aus auth.js
+  renderHeader();
   renderCard("all");
 }
 //#endregion
@@ -72,7 +73,10 @@ function renderComments(i) {
   let currentComments = hobbys[i].comments;
 
   for (let j = currentComments.length - 1; j >= 0; j--) {
-    comments += commentsTemplate(currentComments[j]);
+    let commentActions = getCommentActions(i, j);
+    console.log(commentActions);
+    
+    comments += commentsTemplate(currentComments[j], commentActions);
   }
   return comments;
 }
@@ -95,7 +99,7 @@ function addComment(i) {
     return;
   } 
 
-  hobbys[i].comments.push(createNewComment(content)); // Nutzt Helper-Funktion
+  hobbys[i].comments.push(createNewComment(content));
   saveToLocalStorage();
   commentsRef.innerHTML = renderComments(i);
   commentsRef.scrollTop = 0;
@@ -132,6 +136,25 @@ function saveCard(i, elementRef) {
   } else {
     elementRef.classList.toggle("icon-save-checked");
   }
+}
+
+function editComment(i, commentIndex) {
+  const commentsRef = document.getElementById("comments-wrapper");
+  let oldText = hobbys[i].comments[commentIndex].commentContent;
+  let newText = prompt("Bearbeite deinen Kommentar:", oldText);
+
+  if (newText !== null) {
+    hobbys[i].comments[commentIndex].commentContent = newText;
+    saveToLocalStorage();
+    commentsRef.innerHTML = renderComments(i);
+  }
+}
+
+function deleteComment(i, commentIndex) {
+  const commentsRef = document.getElementById("comments-wrapper");
+  hobbys[i].comments.splice(commentIndex, 1);
+  saveToLocalStorage;
+  commentsRef.innerHTML = renderComments(i);
 }
 //#endregion
 

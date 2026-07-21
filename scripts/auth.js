@@ -2,10 +2,10 @@ function addUser() {
   const userInputRef = document.getElementById("user-input");
   const loginRef = document.getElementById("login");
   if (userInputRef.value != "") {
-    let userName = userInputRef.value;
-    localStorage.setItem("userName", userName);
+    currentUser = userInputRef.value;
+    localStorage.setItem("userName", currentUser);
     loginRef.innerHTML = "";
-    loginRef.innerHTML = welcomeTemplate(userName);
+    loginRef.innerHTML = welcomeTemplate(currentUser);
   } else {
     alert("Du hast da wohl etwas vergessen.");
   }

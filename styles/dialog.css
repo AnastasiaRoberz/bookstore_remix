@@ -72,6 +72,24 @@ dialog.opened {
   border-radius: 10px;
   text-align: left;
 
+  .comment-infos {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .comment-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .btn-comment-actions {
+    width: 16px;
+    height: 16px;
+    fill: white;
+  }
+
   .comment-content {
     margin-left: 16px;
   }

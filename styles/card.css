@@ -42,7 +42,7 @@
     position: absolute;
     right: 0;
     top: 4px;
-    stroke: var(--neon-cyan);
+    stroke: white;
     stroke-width: 0.4px;
     fill: rgba(255, 255, 255, 0.2);
   }
