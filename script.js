@@ -1,5 +1,4 @@
 //#region GLOBALE VARIABLEN
-const dialogRef = document.getElementById("card-dialog");
 const cardWrapperRef = document.getElementById("card-wrapper");
 const headingRef = document.getElementById("main-heading");
 let currentView = "all";
@@ -10,7 +9,7 @@ let currentUser = "[unknown user]";
 function init() {
   getFromLocalStorage();
   renderHeader();
-  renderCard("all");
+  renderAllCards("all");
 }
 //#endregion
 
@@ -23,23 +22,7 @@ function setHeading(viewType) {
   }
 }
 
-function renderSingleCard(i) {
-  let cardInfos = renderInfoTable(i);
-  cardWrapperRef.innerHTML += cardTemplate(i, cardInfos);
-  let cardContainer = document.getElementById(`card${i}`);
-  let elements = getLikeElements(cardContainer);
-
-  updateLikesContent(
-    i,
-    elements.btnSave,
-    elements.btnLike,
-    elements.btnDislike,
-    elements.txtLikes,
-    elements.txtDislikes
-  );
-}
-
-function renderCard(viewType) {
+function renderAllCards(viewType) {
   currentView = viewType;
   cardWrapperRef.innerHTML = "";
   setHeading(viewType);
@@ -49,23 +32,12 @@ function renderCard(viewType) {
     renderSingleCard(i);
   }
 }
-//#endregion
 
-//#region RENDER DIALOG
-function openDialog(i) {
-  dialogRef.showModal();
-  dialogRef.classList.add("opened");
-  document.body.classList.add("dialog-open");
-  renderDialog(i);
-}
+function renderSingleCard(i) {
+  let cardInfos = infoTableTemplate(hobbys[i].avgCosts, hobbys[i].avgDuration, hobbys[i].avgLevel);
 
-function closeDialog() {
-  if (dialogRef.open) {
-    dialogRef.close();
-  }
-  dialogRef.classList.remove("opened");
-  document.body.classList.remove("dialog-open");
-  renderCard(currentView);
+  cardWrapperRef.innerHTML += cardTemplate(i, cardInfos, renderComments(i));
+  updateLikesContent(i);
 }
 
 function renderComments(i) {
@@ -73,26 +45,39 @@ function renderComments(i) {
   let currentComments = hobbys[i].comments;
 
   for (let j = currentComments.length - 1; j >= 0; j--) {
-    let commentActions = getCommentActions(i, j);
-    console.log(commentActions);
-    
-    comments += commentsTemplate(currentComments[j], commentActions);
+    let commentActions = getCommentActions(i, j);  
+    comments += commentTemplate(currentComments[j], commentActions);
   }
   return comments;
-}
-
-function renderDialog(i) {
-  dialogRef.innerHTML = "";
-  const comments = renderComments(i);
-  dialogRef.innerHTML += getDialogTemplate(i, comments);
 }
 //#endregion
 
 //#region USER INTERACTIONS
+function likeCard(i, type) {
+  if (type === "like") {
+    updateLikeStatus(i);
+  } else if (type === "dislike") {
+    updateDislikeStatus(i);
+  }
+  saveToLocalStorage();
+  updateLikesContent(i);
+}
+
+function saveCard(i, elementRef) {
+  hobbys[i].saved = !hobbys[i].saved;
+  saveToLocalStorage();
+
+  if (currentView === "saved") {
+    renderAllCards("saved");
+  } else {
+    elementRef.classList.toggle("icon-save-checked");
+  }
+}
+
 function addComment(i) {
-  const commentInputRef = document.getElementById(`send-comment-input${i}`);
-  const commentsRef = document.getElementById("comments-wrapper");
-  let content = commentInputRef.value;
+  const inputRef = document.getElementById(`send-comment-input${i}`);
+  const commentsRef = document.getElementById(`comments-wrapper-card${i}`);
+  let content = inputRef.value;
 
   if (content === "") {
     alert("Ein leerer Kommentar schützt niemanden vor Fehlkäufen!");
@@ -103,43 +88,11 @@ function addComment(i) {
   saveToLocalStorage();
   commentsRef.innerHTML = renderComments(i);
   commentsRef.scrollTop = 0;
-  commentInputRef.value = "";
-}
-
-function likeCard(i, type, elementRef) {
-  let parentWrapper = elementRef.closest(".likes-wrapper");
-  let elements = getLikeElements(parentWrapper);
-
-  if (type === "like") {
-    updateLikeStatus(i);
-  } else if (type === "dislike") {
-    updateDislikeStatus(i);
-  }
-
-  saveToLocalStorage();
-  updateLikesContent(
-    i,
-    elements.btnSave,
-    elements.btnLike,
-    elements.btnDislike,
-    elements.txtLikes,
-    elements.txtDislikes
-  );
-}
-
-function saveCard(i, elementRef) {
-  hobbys[i].saved = !hobbys[i].saved;
-  saveToLocalStorage();
-
-  if (currentView === "saved") {
-    renderCard("saved");
-  } else {
-    elementRef.classList.toggle("icon-save-checked");
-  }
+  inputRef.value = "";
 }
 
 function editComment(i, commentIndex) {
-  const commentsRef = document.getElementById("comments-wrapper");
+  const commentsRef = document.getElementById(`comments-wrapper-card${i}`);
   let oldText = hobbys[i].comments[commentIndex].commentContent;
   let newText = prompt("Bearbeite deinen Kommentar:", oldText);
 
@@ -151,7 +104,7 @@ function editComment(i, commentIndex) {
 }
 
 function deleteComment(i, commentIndex) {
-  const commentsRef = document.getElementById("comments-wrapper");
+  const commentsRef = document.getElementById(`comments-wrapper-card${i}`);
   hobbys[i].comments.splice(commentIndex, 1);
   saveToLocalStorage;
   commentsRef.innerHTML = renderComments(i);

@@ -1,45 +1,3 @@
-//#region BERECHNUNGEN
-function roundNumber(value) {
-  let roundedNumber = value.toLocaleString("de-DE", {
-    maximumFractionDigits: 1,
-  });
-  return roundedNumber;
-}
-
-function formatPrice(value) {
-    let formattedPrice = value.toLocaleString("de-DE", {
-        style: "currency",
-        currency: "EUR"
-    });
-    formattedPrice = formattedPrice.replace(/\s/, "");
-
-    return formattedPrice;
-}
-
-function getAverage(i, value) {
-    let sum = 0;
-    let commentsLength = hobbys[i].comments.length;
-
-    if (commentsLength === 0) {
-      return 0;
-    }
-
-    for (let j = 0; j < commentsLength; j++) {
-        sum += hobbys[i].comments[j][value];
-    }
-
-    return sum / commentsLength;
-}
-
-function renderInfoTable(i) {
-  let avgCosts = formatPrice(getAverage(i, "costs"));
-  let avgDuration = Math.trunc(getAverage(i, "duration"));
-  let avgLevel = roundNumber(getAverage(i, "euphoriaLevel"));
-
-  return infoTableTemplate(avgCosts, avgDuration, avgLevel);
-}
-//#endregion
-
 //#region LIKE STATUS
 function updateLikeStatus(i) {  
   if (hobbys[i].liked === false) {
@@ -69,7 +27,13 @@ function updateDislikeStatus(i) {
   }
 }
 
-function updateLikesContent(i, btnSave, btnLike, btnDislike, txtLikes, txtDislikes) {
+function updateLikesContent(i) {
+  const btnLike = document.getElementById(`icon-like-card${i}`);
+  const txtLikes = document.getElementById(`likes-card${i}`);
+  const btnDislike = document.getElementById(`icon-dislike-card${i}`);
+  const txtDislikes = document.getElementById(`dislikes-card${i}`);
+  const btnSave = document.getElementById(`icon-save-card${i}`);
+  
   if (btnSave) {
     btnSave.classList.toggle("icon-save-checked", hobbys[i].saved);
   }
@@ -77,17 +41,6 @@ function updateLikesContent(i, btnSave, btnLike, btnDislike, txtLikes, txtDislik
   btnDislike.classList.toggle("icon-dislike-checked", hobbys[i].disliked);
   txtLikes.innerText = hobbys[i].likes;
   txtDislikes.innerText = hobbys[i].dislikes;
-}
-
-function getLikeElements(container) {
-  let elements = {
-    btnSave: container.querySelector(".icon-save"),
-    btnLike: container.querySelector(".icon-like"),
-    btnDislike: container.querySelector(".icon-dislike"),
-    txtLikes: container.querySelector(".like-number"),
-    txtDislikes: container.querySelector(".dislike-number")
-  }
-  return elements;
 }
 //#endregion
 
@@ -99,14 +52,11 @@ function createNewComment(content) {
   return {
     userName: currentUser,
     commentContent: content,
-    costs: 68,
-    duration: 30,
-    euphoriaLevel: 6,
   };
 }
 
 function getCommentActions(i, j) { 
-  if (hobbys[i].comments[j].userName === currentUser) {
+  if (hobbys[i].comments[j].userName === currentUser && currentUser != "[unknown user]") {
     return commentActionsTemplate(i, j);
   }
   return "";
@@ -119,7 +69,6 @@ function saveToLocalStorage() {
 }
 
 function getFromLocalStorage() {
-  
   let storageArray = JSON.parse(localStorage.getItem("hobbys"));
   let storageUser = localStorage.getItem("userName");
   if (storageArray) hobbys = storageArray;
