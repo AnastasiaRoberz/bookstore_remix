@@ -6,8 +6,14 @@ function loginTemplate() {
       class="user-name-input"
       id="user-input"
       placeholder="Dein Username"
+      onkeydown="if(event.key === 'Enter') addUser()"
     />
-    <button class="btn-add-user" onclick="addUser()">User speichern</button>
+    <button class="add-user" onclick="addUser()">
+      <span class="add-user-text">User speichern</span>
+      <svg class="add-user-btn">
+        <use href="./assets/icons/icons.svg#icon-save-user"></use>
+      </svg>
+    </button>
   `;
 }
 
@@ -102,7 +108,8 @@ function getDialogTemplate(i, comments) {
           ${comments}
         </div>
         <div class="send-comment">
-          <input type="text" class="send-comment-input" name="" id="send-comment-input${i}" placeholder="Hinterlasse auch eine Warnung">
+          <input type="text" class="send-comment-input" name="" id="send-comment-input${i}" placeholder="Hinterlasse auch eine Warnung"
+          onkeydown="if(event.key === 'Enter') addComment(${i})">
             <svg class="send-comment-btn" onclick="addComment(${i})">
               <use href="./assets/icons/icons.svg#icon-send"></use>
             </svg>
@@ -112,10 +119,11 @@ function getDialogTemplate(i, comments) {
   `;
 }
 
-function commentsTemplate(comment) {
+function commentsTemplate(comment, i, commentIndex) {
   return /*html*/ `
     <article class="comment">
       <p class="user">${comment.userName}</p>
+      <div class="comment-actions" id="comment-actions"></div>
       <p class="comment-content">${comment.commentContent}</p>
     </article>
   `;

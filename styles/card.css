@@ -2,11 +2,11 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 32px;
+  gap: clamp(16px, calc(-2.337px + 2.385vw), 32px) clamp(8px, calc(-77.714px + 10.714vw), 32px);
 }
 
 .card {
-  width: 350px;
+  max-width: 350px;
 
   background-color: var(--bg-card);
   border-radius: 30px;
@@ -19,7 +19,7 @@
 }
 
 .card-heading {
-  min-height: 66px;
+  min-height: clamp(58px, calc(55.183px + 0.751vw), 66px);
   align-content: center;
 }
 
@@ -114,7 +114,6 @@
   gap: 16px;
   padding: 8px;
 
-  border: 1px solid var(--border-color);
   border-radius: 10px;
 }
 

@@ -98,6 +98,7 @@ function addComment(i) {
   hobbys[i].comments.push(createNewComment(content)); // Nutzt Helper-Funktion
   saveToLocalStorage();
   commentsRef.innerHTML = renderComments(i);
+  commentsRef.scrollTop = 0;
   commentInputRef.value = "";
 }
 
