@@ -43,7 +43,7 @@ button {
 input {
   background: none;
   border: none;
-  color: var(--text-main);
+  color: var(--text-light);
   background-color: var(--bg-input);
   width: 100%;
   height: 24px;
@@ -53,17 +53,4 @@ input {
 svg {
   display: block;
   cursor: pointer;
-}
-
-@media screen and (max-width: 1024px) {
-  /* .header-content .add-user-btn {
-    display: block;
-    fill: var(--neon-cyan);
-    width: 24px;
-    height: 24px; 
-  }
-
-  .add-user-text {
-    display: none;
-  } */
 }

@@ -35,18 +35,16 @@ function renderAllCards(viewType) {
 
 function renderSingleCard(i) {
   let cardInfos = infoTableTemplate(hobbys[i].avgCosts, hobbys[i].avgDuration, hobbys[i].avgLevel);
-
   cardWrapperRef.innerHTML += cardTemplate(i, cardInfos, renderComments(i));
   updateLikesContent(i);
 }
 
 function renderComments(i) {
   let comments = "";
-  let currentComments = hobbys[i].comments;
 
-  for (let j = currentComments.length - 1; j >= 0; j--) {
-    let commentActions = getCommentActions(i, j);  
-    comments += commentTemplate(currentComments[j], commentActions);
+  for (let j = hobbys[i].comments.length - 1; j >= 0; j--) {
+    let commentButtons = getCommentButtons(i, j);  
+    comments += commentTemplate(hobbys[i].comments[j], commentButtons);
   }
   return comments;
 }

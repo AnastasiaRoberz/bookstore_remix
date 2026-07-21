@@ -94,21 +94,21 @@ function likesTemplate(i) {
   `;
 }
 
-function commentTemplate(comment, commentActions) {
+function commentTemplate(comment, commentButtons) {
   return /*html*/ `
     <article class="comment">
       <div class="comment-infos">
         <p class="user">${comment.userName}</p>
-        ${commentActions}
+        ${commentButtons}
       </div>
       <p class="comment-content">${comment.commentContent}</p>
     </article>
   `;
 }
 
-function commentActionsTemplate(i, commentIndex) {
+function commentButtonsTemplate(i, commentIndex) {
   return /*html*/`
-    <div class=comment-actions>
+    <div class=comment-buttons>
       <svg class="btn-comment-actions" onclick="editComment(${i}, ${commentIndex})">
         <use href="./assets/icons/icons.svg#icon-edit"></use>
       </svg>  

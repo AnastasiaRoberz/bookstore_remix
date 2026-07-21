@@ -34,9 +34,7 @@ function updateLikesContent(i) {
   const txtDislikes = document.getElementById(`dislikes-card${i}`);
   const btnSave = document.getElementById(`icon-save-card${i}`);
   
-  if (btnSave) {
-    btnSave.classList.toggle("icon-save-checked", hobbys[i].saved);
-  }
+  btnSave.classList.toggle("icon-save-checked", hobbys[i].saved);
   btnLike.classList.toggle("icon-like-checked", hobbys[i].liked);
   btnDislike.classList.toggle("icon-dislike-checked", hobbys[i].disliked);
   txtLikes.innerText = hobbys[i].likes;
@@ -55,15 +53,15 @@ function createNewComment(content) {
   };
 }
 
-function getCommentActions(i, j) { 
-  if (hobbys[i].comments[j].userName === currentUser && currentUser != "[unknown user]") {
-    return commentActionsTemplate(i, j);
+function getCommentButtons(i, commentIndex) { 
+  if (hobbys[i].comments[commentIndex].userName === currentUser && currentUser != "[unknown user]") {
+    return commentButtonsTemplate(i, commentIndex);
   }
   return "";
 }
 //#endregion
 
-//#region STORAGE & BUBBLING
+//#region LOCAL STORAGE
 function saveToLocalStorage() {
   localStorage.setItem("hobbys", JSON.stringify(hobbys));
 }
@@ -73,9 +71,5 @@ function getFromLocalStorage() {
   let storageUser = localStorage.getItem("userName");
   if (storageArray) hobbys = storageArray;
   if (storageUser) currentUser = storageUser;
-}
-
-function bubblingProtection(event) {
-  event.stopPropagation();
 }
 //#endregion

@@ -47,7 +47,7 @@ html,
 button {
   font-size: 16px;
   text-align: center;
-  color: var(--text-main);
+  color: var(--text-light);
 
   font-family: "Plus Jakarta Sans";
   font-weight: 400;
@@ -67,7 +67,7 @@ h2 {
   font-weight: 500;
   font-size: clamp(1.5rem, 1.4296rem + 0.3005vw, 1.7rem);
   line-height: 120%;
-  color: var(--text-main);
+  color: var(--text-light);
 }
 
 h3 {

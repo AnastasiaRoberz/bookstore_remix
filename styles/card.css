@@ -121,7 +121,7 @@
     align-items: center;
   }
 
-  .comment-actions {
+  .comment-buttons {
     display: flex;
     align-items: center;
     gap: 8px;
